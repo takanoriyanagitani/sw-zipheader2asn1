@@ -1,0 +1,30 @@
+ZipHeader DEFINITIONS ::= BEGIN
+
+  Timestamp ::= CHOICE {
+    unixTime   [0] IMPLICIT INTEGER,
+    unixTimeMs [1] IMPLICIT INTEGER,
+    unixTimeUs [2] IMPLICIT INTEGER,
+    unixTimeNs [3] IMPLICIT INTEGER,
+    rfc3339    [4] IMPLICIT UTF8String
+  }
+
+  CompressionMethod ::= ENUMERATED {
+    stored (0),
+    deflated (8)
+  }
+
+  TimeInfo ::= SEQUENCE {
+	  timestamp Timestamp
+  }
+
+  FileHeader ::= SEQUENCE {
+    name                UTF8String,
+    comment             UTF8String,
+    method              CompressionMethod,
+    modified            TimeInfo,
+    crc32               INTEGER,
+    compressedSize64    INTEGER,
+    uncompressedSize64  INTEGER
+  }
+
+END
